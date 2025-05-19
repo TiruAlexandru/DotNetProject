@@ -18,7 +18,7 @@ public class GetActivityDetails
         {
             var activity = await context.Activities.FindAsync([request.Id], cancellationToken);
 
-            if (activity == null) throw new Exception("Actovity not found");
+            if (activity == null) throw new Exception("Activity not found");
 
             return activity;
         }
