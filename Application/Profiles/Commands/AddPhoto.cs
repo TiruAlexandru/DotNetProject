@@ -10,15 +10,15 @@ namespace Application.Profiles.Commands;
 
 public class AddPhoto
 {
-    public class Commands : IRequest<Result<Photo>>
+    public class Command : IRequest<Result<Photo>>
     {
         public required IFormFile File { get; set; }
     }
 
     public class Handler(IUserAccessor userAccessor, AppDbContext context,
-        IPhotoService photoService) : IRequestHandler<Commands, Result<Photo>>
+        IPhotoService photoService) : IRequestHandler<Command, Result<Photo>>
     {
-        public async Task<Result<Photo>> Handle(Commands request, CancellationToken cancellationToken)
+        public async Task<Result<Photo>> Handle(Command request, CancellationToken cancellationToken)
         {
             var uploadResult = await photoService.UploadPhoto(request.File);
 

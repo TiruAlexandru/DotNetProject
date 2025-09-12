@@ -1,6 +1,3 @@
-using System;
-using System.Reflection.Metadata;
-using Application.Activities.Commands;
 using Application.Profiles;
 using Application.Profiles.Commands;
 using Application.Profiles.DTOs;
@@ -15,7 +12,7 @@ public class ProfilesController : BaseApiController
     [HttpPost("add-photo")]
     public async Task<ActionResult<Photo>> AddPhoto(IFormFile file)
     {
-        return HandleResult(await Mediator.Send(new AddPhoto.Commands { File = file }));
+        return HandleResult(await Mediator.Send(new AddPhoto.Command { File = file }));
     }
 
     [HttpGet("{userId}/photos")]
@@ -30,14 +27,14 @@ public class ProfilesController : BaseApiController
         return HandleResult(await Mediator.Send(new DeletePhoto.Command { PhotoId = photoId }));
     }
 
-    [HttpPut("{photoId}/SetMain")]
+    [HttpPut("{photoId}/setMain")]
     public async Task<ActionResult> SetMainPhoto(string photoId)
     {
         return HandleResult(await Mediator.Send(new SetMainPhoto.Command { PhotoId = photoId }));
     }
 
     [HttpGet("{userId}")]
-    public async Task<ActionResult<UserProfile>> GetProfiele(string userId)
+    public async Task<ActionResult<UserProfile>> GetProfile(string userId)
     {
         return HandleResult(await Mediator.Send(new GetProfile.Query { UserId = userId }));
     }

@@ -9,7 +9,7 @@ import { Link } from 'react-router';
 import { Add, Logout, Person } from '@mui/icons-material';
 
 export default function UserMenu() {
-    const { currentUser, logoutUser } = useAccount();
+  const { currentUser, logoutUser } = useAccount();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -27,11 +27,14 @@ export default function UserMenu() {
         onClick={handleClick}
         color='inherit'
         size='large'
-        sx={{fontSize: '1.1rem'}}
+        sx={{ fontSize: '1.1rem' }}
       >
         <Box display='flex' alignItems='cenetr' gap={2}>
-            <Avatar/>
-            {currentUser?.displayName}
+          <Avatar
+            src={currentUser?.imageUrl}
+            alt='current user image'
+          />
+          {currentUser?.displayName}
         </Box>
       </Button>
       <Menu
@@ -46,27 +49,27 @@ export default function UserMenu() {
         }}
       >
         <MenuItem component={Link} to='/createActivity' onClick={handleClose}>
-            <ListItemIcon>
-                <Add/>
-            </ListItemIcon>
-            <ListItemText>Create Activity</ListItemText>
-        </MenuItem>    
-        <MenuItem component={Link} to='/profile' onClick={handleClose}>
-            <ListItemIcon>
-                <Person/>
-            </ListItemIcon>
-            <ListItemText>My profile</ListItemText>
+          <ListItemIcon>
+            <Add />
+          </ListItemIcon>
+          <ListItemText>Create Activity</ListItemText>
         </MenuItem>
-        <Divider/>
-        <MenuItem component={Link} to='/profile' onClick={handleClose}>
-            <ListItemIcon onClick={() => {
-                logoutUser.mutate();
-                handleClose();
-            }}>
-                <Logout/>
-            </ListItemIcon>
-            <ListItemText>Logout</ListItemText>
-        </MenuItem> 
+        <MenuItem component={Link} to={`/profiles/${currentUser?.id}`} onClick={handleClose}>
+          <ListItemIcon>
+            <Person />
+          </ListItemIcon>
+          <ListItemText>My profile</ListItemText>
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={() => {
+          logoutUser.mutate();
+          handleClose();
+        }}>
+          <ListItemIcon>
+            <Logout />
+          </ListItemIcon>
+          <ListItemText>Logout</ListItemText>
+        </MenuItem>
       </Menu>
     </>
   );

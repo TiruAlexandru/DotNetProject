@@ -17,7 +17,7 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
         {
             UserName = registerDto.Email,
             Email = registerDto.Email,
-            DispalyName = registerDto.DisplayName
+            DisplayName = registerDto.DisplayName
         };
 
         var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);
@@ -45,7 +45,7 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
 
         return Ok(new
         {
-            user.DispalyName,
+            user.DisplayName,
             user.Email,
             user.Id,
             user.ImageUrl

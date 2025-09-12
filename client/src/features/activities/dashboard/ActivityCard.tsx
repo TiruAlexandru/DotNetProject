@@ -2,8 +2,8 @@ import { AccessTime, Place } from "@mui/icons-material";
 import { Avatar, Box, Button, Card, CardContent, CardHeader, Chip, Divider, Typography } from "@mui/material"
 import { Link } from "react-router";
 import { formatDate } from "../../../lib/util/util";
-import type { Activity } from "../../../lib/types";
 import AvatarPopover from "../../../app/shared/components/AvatarPopover";
+import type { Activity } from "../../../lib/types";
 
 type Props = {
   activity: Activity
@@ -17,18 +17,22 @@ export default function ActivityCard({ activity }: Props) {
     <Card elevation={3} sx={{ borderRadius: 3 }}>
       <Box display='flex' alignItems='center' justifyContent='space-between'>
         <CardHeader
-          avatar={<Avatar sx={{ height: 80, width: 80 }} />}
+          avatar={<Avatar 
+            src={activity.hostImageUrl} 
+            sx={{ height: 80, width: 80 }} 
+            alt="image of host"
+          />}
           title={activity.title}
-          slotProps={{
+          titleTypographyProps={{
             fontWeight: 'bold',
             fontSize: 20
           }}
           subheader={
             <>
-              Hosted By{' '} 
-                <Link to={`/profiles/${activity.hostId}`}>
-                  {activity.hostDisplayName}
-                </Link>
+              Hosted by{' '} 
+              <Link to={`/profiles/${activity.hostId}`}>
+                {activity.hostDisplayName}
+              </Link>
             </>
           }
         />
@@ -48,6 +52,7 @@ export default function ActivityCard({ activity }: Props) {
               {formatDate(activity.date)}
             </Typography>
           </Box>
+
           <Place sx={{ ml: 3, mr: 1 }} />
           <Typography variant="body2">{activity.venue}</Typography>
         </Box>
@@ -67,7 +72,7 @@ export default function ActivityCard({ activity }: Props) {
           to={`/activities/${activity.id}`}
           size="medium"
           variant="contained"
-          sx={{ display: 'flex', justifySelf: 'self-end', borderRadius: '8px' }}
+          sx={{ display: 'flex', justifySelf: 'self-end', borderRadius: 3 }}
         >
           View
         </Button>
