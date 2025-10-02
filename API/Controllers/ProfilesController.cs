@@ -49,7 +49,16 @@ public class ProfilesController : BaseApiController
     [HttpGet("{userId}/follow-list")]
     public async Task<ActionResult> GetFollowings(string userId, string predicate)
     {
-        return HandleResult(await Mediator.Send(new GetFollowings.Query { UserId = userId,
-            Predicate = predicate }));
+        return HandleResult(await Mediator.Send(new GetFollowings.Query
+        {
+            UserId = userId,
+            Predicate = predicate
+        }));
     }
+
+    [HttpPut]
+    public async Task<ActionResult> UpdateProfile(EditProfile.Command command)
+    {
+        return HandleResult(await Mediator.Send(command));
+    } 
 }
