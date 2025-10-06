@@ -14,7 +14,8 @@ export default function HomePage() {
         alignContent: 'center',
         justifyContent: 'center',
         height: '100vh',
-        backgroundImage: 'linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac 89%)'
+        backgroundImage: 'linear-gradient(135deg, rgba(24,42,115,0.9), rgba(33,138,174,0.9))',
+        backdropFilter: 'blur(12px)',
       }}>
       <Box sx={{
         display: 'flex', alignContent: 'center', alignItems: 'center',

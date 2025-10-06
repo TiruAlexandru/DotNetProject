@@ -1,5 +1,5 @@
 import { Group } from "@mui/icons-material";
-import { AppBar, Box, Toolbar, Typography, Container, MenuItem, LinearProgress } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, Container, MenuItem, CircularProgress, Paper } from "@mui/material";
 import { NavLink } from "react-router";
 import MenuItemLink from "../shared/components/MenuItemLink";
 import { Observer } from "mobx-react-lite";
@@ -12,18 +12,39 @@ export default function NavBar() {
   const { currentUser } = useAccount();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static"
+    <Paper sx={{ flexGrow: 2 }}>
+      <AppBar 
+        position="fixed"
         sx={{
-          backgroundImage: 'linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac 89%)',
-          position: 'relative'
+          backgroundImage: 'linear-gradient(135deg, rgba(24,42,115,0.9), rgba(33,138,174,0.9))',
+          backdropFilter: 'blur(12px)',
+          borderBottomLeftRadius: 16,
+          borderBottomRightRadius: 16,
         }}>
         <Container maxWidth='xl' >
           <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box>
               <MenuItem component={NavLink} to='/' sx={{ display: 'flex', gap: 2 }}>
                 <Group fontSize="large" />
-                <Typography variant="h4" fontWeight={'bold'}>Reativities</Typography>
+                <Typography
+                  sx={{position: 'relative'}}
+                  variant="h4" 
+                  fontWeight={'bold'}>
+                  Reativities
+                </Typography>
+                <Observer>
+                  {() => uiStore.isLoading ? (
+                    <CircularProgress
+                      size={20}
+                      thickness={7}
+                      sx={{
+                        color: 'white',
+                        position: 'absolute',
+                        top: '30%',
+                        left: '105%'
+                      }}></CircularProgress>
+                  ) : null}
+                </Observer>
               </MenuItem>
             </Box>
             <Box sx={{ display: 'flex' }}>
@@ -38,33 +59,18 @@ export default function NavBar() {
               </MenuItemLink>
             </Box>
             <Box display='flex' alignItems='center'>
-              {currentUser? (
-                <UserMenu/>
+              {currentUser ? (
+                <UserMenu />
               ) : (
-                <> 
+                <>
                   <MenuItemLink to='/login'>Login</MenuItemLink>
                   <MenuItemLink to='/register'>Register</MenuItemLink>
                 </>
               )}
-              </Box>
+            </Box>
           </Toolbar>
         </Container>
-
-        <Observer>
-          {() => uiStore.isLoading ? (
-            <LinearProgress
-              color="secondary"
-              sx={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: 4,
-              }}></LinearProgress>
-          ) : null}
-        </Observer>
-
       </AppBar>
-    </Box>
+    </Paper>
   )
 }
