@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { useForm } from 'react-hook-form';
 import { useEffect } from "react";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { activitySchema, ActivitySchema } from "../../../lib/schemas/activitySchema";
+import { activitySchema, type ActivitySchema } from "../../../lib/schemas/activitySchema";
 import TextInput from "../../../app/shared/components/TextInput";
 import SelectInput from "../../../app/shared/components/SelectInput";
 import { categoryOptions } from "./caterogyOptions";
@@ -73,7 +73,10 @@ export default function ActivityForm() {
         <LocationInput control={control} label='Enter the location' name="location"/>
 
         <Box display='flex' justifyContent='end' gap={3}>
-          <Button sx={{ borderRadius: '8px' }} color='inherit'>Cancel</Button>
+          <Button
+            onClick={() => navigate(-1)}
+            sx={{ borderRadius: '8px' }} 
+            color='inherit'>Cancel</Button>
           <Button
             type="submit"
             sx={{ borderRadius: '8px' }}

@@ -4,6 +4,7 @@ import agent from "../api/agent";
 import type { Activity, PagedList } from "../types";
 import { useAccount } from "./useAccount";
 import { useStore } from "./UseStore";
+import type { FieldValues } from "react-hook-form";
 
 export const useActivities = (id?: string) => {
     const {activityStore: {filter, startDate}} = useStore();
@@ -25,7 +26,6 @@ export const useActivities = (id?: string) => {
             });
             return response.data;
         },
-        staleTime: 1000 * 60 * 5,
         placeholderData: keepPreviousData,
         initialPageParam: null,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
@@ -77,7 +77,7 @@ export const useActivities = (id?: string) => {
     });
 
     const createActivity = useMutation({
-        mutationFn: async (activity: Activity) => {
+        mutationFn: async (activity: FieldValues) => {
             const response = await agent.post('/activities', activity)
             return response.data;
         },
